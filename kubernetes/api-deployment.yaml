@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-postgres-sample
+  namespace: default
+spec:
+  selector:
+      matchLabels:                    # This deployment applies to the Pods matching the specified labels
+        app: spring-boot-postgres-sample
+  replicas: 1
+  template:
+    metadata:
+      name: spring-boot-postgres-sample
+      labels:
+        app: spring-boot-postgres-sample
+    spec:
+      containers:
+      - name: spring-boot-postgres-sample
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_user
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_password
+          - name: DB_SERVER
+            value: postgres:5432
+          - name: POSTGRES_DB
+            value: kanban
+        image: bharathvelisala/challenge-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanban-app
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+  selector:
+    app: spring-boot-postgres-sample

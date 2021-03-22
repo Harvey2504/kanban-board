@@ -1,0 +1,20 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: kanban-autoscale
+spec:
+    maxReplicas: 5
+    metrics:
+    - resource:
+        name: cpu
+        targetAverageUtilization: 30
+      type: Resource
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: extensions/v1beta1
+      kind: Deployment
+      name: kanban-ui
+  # status:
+  # currentMetrics: []
+  # currentReplicas: 1
+  # desiredReplicas: 0
