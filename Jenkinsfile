@@ -19,7 +19,7 @@ pipeline{
 
         stage("pushing the images to docker hub"){
             steps{
-                withDockerRegistry([ credentialsId: "07790bf0-f91c-4f25-bf4c-afefc4008cc7", url: "" ]){
+                withDockerRegistry([ credentialsId: "7c552b6c-f6d2-4dec-9af4-29d8a2199cdf", url: "" ]){
                     sh "docker push harvey2504/kanban-app:v2"
                     sh "docker push harvey2504/kanban-ui:v2"
                 }
