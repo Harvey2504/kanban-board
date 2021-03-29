@@ -4,7 +4,7 @@ pipeline{
     stages{
 
     
-        stage("docker build"){
+        /*stage("docker build"){
             steps{
                 sh "docker-compose up -d"
             }
@@ -24,9 +24,9 @@ pipeline{
                     sh "docker push harvey2504/kanban-ui:v2"
                 }
             }
-        }
+        }*/
 
-        stage("kubernates"){
+        stage("kubernetes"){
             steps{
                 sh "kubectl apply -f kubernetes"
                 //sh "minikube service ui-service"
